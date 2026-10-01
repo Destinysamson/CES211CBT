@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CES211: Entrepreneurship, Innovation, and Venture Creation - CBT Practice (100 Questions)</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #004085;
+            --accent-color: #28a745;
+            --danger-color: #dc3545;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin: 20px;
+        }
+
+        /* Instructions Screen Styles */
+        #instructions-screen h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .instruction-box {
+            background: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .instruction-box ul {
+            margin: 10px 0 0 20px;
+            padding: 0;
+        }
+
+        .instruction-box li {
+            margin-bottom: 8px;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Quiz Screen Styles */
+        #quiz-screen {
+            display: none;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .timer {
+            background: var(--danger-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #212529;
+            margin-top: 10px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 25px 0;
+        }
+
+        .option-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-item:hover {
+            background: #e2e6ea;
+            border-color: #adb5bd;
+        }
+
+        .option-item input {
+            margin-right: 12px;
+        }
+
+        .quiz-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #dee2e6;
+            padding-top: 15px;
+            margin-bottom: 20px;
+        }
+
+        .nav-btn {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .nav-btn:hover {
+            background-color: #5a6268;
+        }
+
+        .nav-btn:disabled {
+            background-color: #ced4da;
+            cursor: not-allowed;
+        }
+
+        #submit-btn {
+            background-color: var(--accent-color);
+        }
+
+        #submit-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Question Palette / Grid Styles (1 to 100) */
+        .palette-container {
+            border-top: 2px solid #dee2e6;
+            padding-top: 15px;
+        }
+
+        .palette-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(36px, 1fr));
+            gap: 6px;
+            max-height: 180px;
+            overflow-y: auto;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 2px solid #ced4da;
+        }
+
+        .palette-btn {
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            color: #495057;
+            font-size: 12px;
+            font-weight: bold;
+            height: 36px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .palette-btn:hover {
+            background-color: #e2e6ea;
+        }
+
+        .palette-btn.current {
+            border: 2px solid var(--primary-color);
+            background-color: #cce5ff;
+            color: var(--secondary-color);
+        }
+
+        .palette-btn.answered {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: #218838;
+        }
+
+        /* Result & Review Screen Styles */
+        #result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        #result-screen h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 20px 0;
+        }
+
+        #review-screen {
+            display: none;
+            text-align: left;
+        }
+
+        .review-card {
+            background: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .review-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #212529;
+        }
+
+        .review-option {
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .correct-ans {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            font-weight: bold;
+        }
+
+        .wrong-ans {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- INSTRUCTIONS SCREEN -->
+    <div id="instructions-screen">
+        <h2>DELTA STATE UNIVERSITY, ABRAKA</h2>
+        <h3 style="text-align: center; color: #555; margin-top: -10px; margin-bottom: 20px;">CENTRE FOR ENTREPRENEURIAL STUDIES</h3>
+        <h4 style="text-align: center; color: var(--primary-color);">CES211: Entrepreneurship, Innovation, and Venture Creation</h4>
+        
+        <div class="instruction-box">
+            <strong>EXAMINATION INSTRUCTIONS & GUIDELINES:</strong>
+            <ul>
+                <li><strong>Total Questions:</strong> 100 Multiple-Choice Questions (MCQs).</li>
+                <li><strong>Duration:</strong> 60 Minutes. The timer will start automatically once you click "Start Assessment".</li>
+                <li><strong>Navigation:</strong> Use Next/Previous buttons or scroll through the question palette grid below and click any number from 1 to 100 to jump directly.</li>
+                <li><strong>Attempt Tracking:</strong> Answered questions turn green on the navigator grid.</li>
+                <li><strong>Review & Submission:</strong> After submitting, you can review all questions along with the correct answers.</li>
+            </ul>
+        </div>
+        
+        <button class="btn" onclick="startQuiz()">Start Assessment</button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen">
+        <div class="quiz-header">
+            <span id="question-counter" style="font-weight: bold; color: var(--primary-color);">Question 1 of 100</span>
+            <div class="timer" id="timer">Time Left: 60:00</div>
+        </div>
+
+        <div class="question-text" id="question-text">Loading question...</div>
+
+        <ul class="options-list" id="options-list">
+            <!-- Dynamically populated options -->
+        </ul>
+
+        <div class="quiz-footer">
+            <button class="nav-btn" id="prev-btn" onclick="prevQuestion()" disabled>Previous</button>
+            <button class="nav-btn" id="next-btn" onclick="nextQuestion()">Next</button>
+            <button class="nav-btn" id="submit-btn" onclick="submitQuiz()" style="display: none;">Submit Assessment</button>
+        </div>
+
+        <!-- 1 TO 100 QUESTION PALETTE GRID -->
+        <div class="palette-container">
+            <div class="palette-title">
+                <span>Question Navigator (Scroll to see 1 - 100):</span>
+                <span style="font-size: 11px; font-weight: normal; color: #6c757d;">Green = Answered | Blue = Current</span>
+            </div>
+            <div class="palette-grid" id="palette-grid">
+                <!-- Dynamically generated 1-100 buttons -->
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen">
+        <h2>Assessment Completed Successfully</h2>
+        <p>Here is your performance summary for CES211 Practice Test:</p>
+        <div class="score-display" id="score-display">0 / 100</div>
+        <p id="remark-text" style="font-size: 16px; font-weight: 600; margin-bottom: 25px;"></p>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn" onclick="showReview()" style="background-color: var(--secondary-color);">Review Answers</button>
+            <button class="btn" onclick="location.reload()">Retake Assessment</button>
+        </div>
+    </div>
+
+    <!-- REVIEW SCREEN -->
+    <div id="review-screen">
+        <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 20px;">Exam Answer Review</h2>
+        <div id="review-container">
+            <!-- Dynamically injected review cards -->
+        </div>
+        <button class="btn" onclick="location.reload()" style="margin-top: 20px;">Back to Start</button>
+    </div>
+</div>
+
+<script>
+    // 100 Systematically Randomized Questions Array
+    const questions = [
+        {
+            question: "The term 'entrepreneurship' is derived from which French root verb, meaning 'to undertake' or 'to pledge'?",
+            options: ["Enterprise", "Entreprendre", "Entrepose", "Entrepreneurial"],
+            answer: 1
+        },
+        {
+            question: "What is the primary focus of the 'Market/Customer Solution' concept in entrepreneurship?",
+            options: ["Maximizing internal manufacturing output regardless of demand", "Adopting a customer-centric approach by understanding and addressing customer needs and experiences (CX)", "Enforcing rigid pricing models on reluctant buyers", "Eliminating market research entirely"],
+            answer: 1
+        },
+        {
+            question: "Opportunity identification is defined by Lumpkin and Lichtenstein (2005) as:",
+            options: ["The act of liquidating failing corporate assets", "The ability to identify a good idea and transform it into a business concept that adds value and generates revenue", "Borrowing funds from commercial banks without a plan", "Conducting random market guesswork"],
+            answer: 1
+        },
+        {
+            question: "Negotiation serves in a business setting primarily as:",
+            options: ["A method for increasing employee turnover", "A critical process for defining contract terms and resolving conflicts and disputes", "A substitute for market research", "An internal accounting audit"],
+            answer: 1
+        },
+        {
+            question: "In organizational management, 'finance' refers to:",
+            options: ["The physical machinery used in assembly plants", "The financial resources or funds set aside to acquire labor, materials, and technology", "Daily advertising brochures", "Employee attendance registers"],
+            answer: 1
+        },
+        {
+            question: "Marketing is defined by Kotler and Armstrong (2013) as:",
+            options: ["The art of liquidating unsold inventory", "The process by which companies create value for customers and build strong customer relationships to capture value in return", "Strictly advertising products on television", "Managing internal human resource payrolls"],
+            answer: 1
+        },
+        {
+            question: "Entrepreneurship is formally defined as the act of:",
+            options: ["Creating new business ideas and transforming them into goods and services sold for profit", "Maintaining existing bureaucratic procedures without change", "Avoiding economic competition", "Managing passive financial investments"],
+            answer: 0
+        },
+        {
+            question: "Entrepreneurship, in the context of innovative thinking, is defined as:",
+            options: ["Creating or obtaining economic value through methods involving more than minimal risk", "Operating standard retail shops with zero deviation", "Managing fixed government payrolls", "Avoiding new product development"],
+            answer: 0
+        },
+        {
+            question: "The word 'entrepreneurship' is derived from the French word:",
+            options: ["Enterprise", "Entreprendre (meaning 'pledge')", "Entrepose", "Entrepreneurial"],
+            answer: 1
+        },
+        {
+            question: "The management function that involves setting goals and determining the best course of action to achieve them is:",
+            options: ["Controlling", "Planning (identified as the most important element of management)", "Staffing", "Liquidating"],
+            answer: 1
+        },
+        {
+            question: "According to Joseph Schumpeter's classical economic framework (1934), entrepreneurship is fundamentally driven by:",
+            options: ["Preserving stagnant production methods", "Carrying out 'new combinations' of economic resources to disrupt markets", "Monopolizing state-run industries entirely", "Relying exclusively on routine administrative procedures"],
+            answer: 1
+        },
+        {
+            question: "Which emerging technology mimics human intelligence using associated software to assist in decision-making, chatbots, and 24/7 support?",
+            options: ["Internet of Things (IoT)", "Artificial Intelligence (AI)", "Blockchain distributed ledgers", "Renewable solar arrays"],
+            answer: 1
+        },
+        {
+            question: "Which of the following represents an internal source of business opportunities?",
+            options: ["Government regulatory schemes", "Hobbies, interests, and employee intrapreneurship", "Trade fairs and exhibitions", "External customer complaints"],
+            answer: 1
+        },
+        {
+            question: "Principled negotiation (popularized by Fisher, Ury, and Patton in 'Getting to Yes') emphasizes:",
+            options: ["Focusing strictly on rigid initial positions rather than interests", "Separating people from the problem, focusing on interests, and generating options for mutual gain", "Ensuring one party completely defeats the other", "Avoiding objective criteria entirely"],
+            answer: 1
+        },
+        {
+            question: "Long-term financing generally refers to funds obtainable for a period exceeding:",
+            options: ["1 to 3 months", "5 to 10 years (e.g., share capital, long-term bank loans, debentures)", "Exactly 364 days", "6 months maximum"],
+            answer: 1
+        },
+        {
+            question: "What are the traditional 4Ps comprising the marketing mix?",
+            options: ["Planning, Processing, Production, Profit", "Product, Price, Place, Promotion", "People, Process, Physical Evidence, Performance", "Partnership, Packaging, Position, Paradigm"],
+            answer: 1
+        },
+        {
+            question: "According to Joseph Schumpeter (1934), entrepreneurship fundamentally involves:",
+            options: ["Preserving old production combinations", "Carrying out 'new combinations' of resources and driving market innovation", "Enforcing strict market monopolies", "Eliminating technological progress"],
+            answer: 1
+        },
+        {
+            question: "Which of the following is classified as a type of entrepreneurship in Chapter 3?",
+            options: ["Clerical entrepreneurship", "Cultural, religious, feminist, and social entrepreneurship", "Monopolistic state entrepreneurship", "Static asset entrepreneurship"],
+            answer: 1
+        },
+        {
+            question: "Cultural entrepreneurship is defined as:",
+            options: ["The complete commercialization of non-artistic commodities", "Intensive management procedures of artistic production and supply to create cultural value", "Restricting business strictly to manufacturing goods", "Eliminating traditional heritage from business"],
+            answer: 1
+        },
+        {
+            question: "Henri Fayol's elements of management traditionally begin with setting objectives and include planning, organizing, leading, controlling, and:",
+            options: ["Auditing", "Staffing", "Manufacturing", "Advertising"],
+            answer: 1
+        },
+        {
+            question: "Which economic theory attributes venture creation primarily to external market incentives, tax policies, and infrastructure availability?",
+            options: ["Psychological Theory of Entrepreneurship", "Economic Theory of Entrepreneurship", "Anthropological Framework", "Sociological Paradigm"],
+            answer: 1
+        },
+        {
+            question: "The Internet of Things (IoT) is best defined as:",
+            options: ["A centralized mainframe database owned by a single bank", "A network of connected physical objects embedded with sensors and software that collect and exchange real-time data", "A virtual reality gaming headset", "Manual bookkeeping ledger books"],
+            answer: 1
+        },
+        {
+            question: "Brainwriting differs from traditional verbal brainstorming because it is:",
+            options: ["Conducted aloud in large noisy groups", "A quiet, written method where participants jot down thoughts on cards for a set time", "Performed strictly by external auditors", "Focused entirely on financial accounting statements"],
+            answer: 1
+        },
+        {
+            question: "Integrative bargaining is also frequently referred to as:",
+            options: ["Zero-sum negotiation", "Win-win or collaborative negotiation (expanding the pie)", "Distributive bargaining", "Autocratic bargaining"],
+            answer: 1
+        },
+        {
+            question: "What is recognized as one of the most predominant internal sources of entrepreneurial financing ('bootstrapping')?",
+            options: ["Commercial bank overdrafts", "Personal savings", "Government foreign debt", "Public stock offerings"],
+            answer: 1
+        },
+        {
+            question: "Which element of the marketing mix is the *only* one that produces revenue, while all others represent costs?",
+            options: ["Product", "Price", "Place", "Promotion"],
+            answer: 1
+        },
+        {
+            question: "Which of the following is identified as a core characteristic or pillar of entrepreneurship?",
+            options: ["Complete avoidance of risk and uncertainty", "Innovation, value creation, risk-bearing, and managerial skill", "Permanent reliance on state subsidies", "Routine clerical administration"],
+            answer: 1
+        },
+        {
+            question: "Which factor serves as a key market indicator of entrepreneurial success?",
+            options: ["Operating exclusively in declining industries", "Practicing B2B or B2C models in high-growth, untapped target markets", "Avoiding customer feedback", "Relying on single-customer channels"],
+            answer: 1
+        },
+        {
+            question: "Which institution was established by the Federal Government of Nigeria to promote non-oil exports?",
+            options: ["Nigerian Investment Promotion Commission (NIPC)", "Nigerian Export Promotion Council (NEPC)", "Nigerian Export Processing Zones Authority (NEPZA)", "Manufacturers Association of Nigeria (MAN)"],
+            answer: 1
+        },
+        {
+            question: "Bookkeeping is formally defined as:",
+            options: ["Predicting future stock market crashes", "The art and process of recording and tracking financial transactions", "Managing intergenerational family conflicts", "Designing corporate logos"],
+            answer: 1
+        },
+        {
+            question: "An entrepreneur who exhibits an 'internal locus of control' (Rotter, 1966) believes that:",
+            options: ["Venture outcomes are dictated strictly by random luck or fate", "Success and performance depend directly on their own personal behavior and effort", "Government regulators control final market success", "Individual decisions have zero impact on enterprise growth"],
+            answer: 1
+        },
+        {
+            question: "Augmented Reality (AR) and Virtual Reality (VR) enhance customer and business experiences by:",
+            options: ["Restricting interactions to 2D text documents", "Creating simulated 3D environments or blending virtual elements with the physical world for training and product visualization", "Automating accounting balance sheets", "Replacing internet connectivity"],
+            answer: 1
+        },
+        {
+            question: "What is the recommended composition for a market research focus group?",
+            options: ["1 to 3 corporate executives", "8 to 14 recruited individuals guided by a moderator", "An entire university student body", "Independent government regulators"],
+            answer: 1
+        },
+        {
+            question: "Distributive negotiation (competitive or zero-sum negotiation) is characterized by:",
+            options: ["Multiple issues with shared cooperative interests", "A fixed amount of resources where one party's gain is the other party's loss", "Long-term relationship building", "Complete transparency of hidden reserves"],
+            answer: 1
+        },
+        {
+            question: "Venture capital financing (such as funds under SMIEIS in Nigeria) is best described as:",
+            options: ["Short-term micro-credit with zero risk", "Equity investment where investors provide large funds, take high risks, and expect high capital gains", "Government welfare grants for unemployed graduates", "Unsecured trade credit from suppliers"],
+            answer: 1
+        },
+        {
+            question: "The 'Total Product Concept' divides the total product offering into three components:",
+            options: ["Input, Process, Output", "The core product, the supportive product, and the augmented product", "Primary, Secondary, Tertiary goods", "Cost, Price, Profit items"],
+            answer: 1
+        },
+        {
+            question: "How does entrepreneurship contribute to poverty alleviation in developing nations?",
+            options: ["By reducing overall economic productivity", "By creating new enterprises, increasing net productivity, and generating income", "By limiting market competition", "Depressing per capita income growth"],
+            answer: 1
+        },
+        {
+            question: "Critical thinking is best described as:",
+            options: ["Accepting all written text without examination", "Logically correct thinking that questions, analyzes, interprets, and evaluates information", "Daydreaming about future business ideas", "Memorizing historical management definitions"],
+            answer: 1
+        },
+        {
+            question: "The primary purpose of the Nigerian Investment Promotion Commission (NIPC) is to:",
+            options: ["Regulate domestic agricultural bank lending", "Attract foreign direct investment into Nigeria", "Manage export shipping ports exclusively", "Control commercial bank interest rates"],
+            answer: 1
+        },
+        {
+            question: "In double-entry bookkeeping, if an entrepreneur purchases equipment by paying cash:",
+            options: ["Only cash is credited with no other entry", "Equipment is debited and Cash is credited", "Both accounts are debited simultaneously", "Equity is eliminated"],
+            answer: 1
+        },
+        {
+            question: "David McClelland’s (1961) behavioral theory emphasizes that successful entrepreneurs are primarily motivated by:",
+            options: ["The need for social conformity and group affiliation", "The need for achievement (nAch), excellence, and mastering difficult challenges", "The desire to avoid all personal accountability", "Fear of financial competition"],
+            answer: 1
+        },
+        {
+            question: "How does blockchain technology revolutionize data management and transactions?",
+            options: ["By relying on a single vulnerable central authority", "By using a decentralized, distributed ledger synchronized across a network to ensure transparency and tamper-proof security", "By slowing down all commercial transactions permanently", "By eliminating the need for digital records"],
+            answer: 1
+        },
+        {
+            question: "When pitching an idea to investors, research from the Harvard Business Review emphasizes that investor interest is driven primarily by:",
+            options: ["Complex technical spreadsheets", "Perceptions about the founder's character, trustworthiness, and team dynamics", "The length of the business plan document", "Flashy office presentations"],
+            answer: 1
+        },
+        {
+            question: "What does the acronym BATNA stand for in strategic negotiation?",
+            options: ["Best Asset Target Net Analysis", "Best Alternative to a Negotiated Agreement", "Business Agreement Trade Negotiation Act", "Buyer and Trade Network Agreement"],
+            answer: 1
+        },
+        {
+            question: "Equity financing involves raising capital by:",
+            options: ["Borrowing short-term commercial loans with fixed interest", "Selling shares or stocks of the enterprise to existing or new investors", "Delaying payments to raw material suppliers", "Liquidating company machinery"],
+            answer: 1
+        },
+        {
+            question: "The extended marketing mix for services adds three additional Ps to the traditional 4Ps, which are:",
+            options: ["Packaging, Positioning, Planning", "People, Process, and Physical Evidence", "Profit, Promotion, Partnerships", "Production, Prototyping, Price"],
+            answer: 1
+        },
+        {
+            question: "An individual who designs a business idea, harnesses resources, and introduces a new method of production is best described as an:",
+            options: ["Auditor", "Entrepreneur", "Consumer representative", "Creditor"],
+            answer: 1
+        },
+        {
+            question: "Reflective thinking primarily involves:",
+            options: ["Worrying uncontrollably about uncontrollable events", "Investigating the larger context, meaning, and lessons learned from past experiences", "Executing rapid mechanical calculations", "Disregarding past business failures"],
+            answer: 1
+        },
+        {
+            question: "What is a major financing mechanism recommended to lower risk and support youth entrepreneurs with minimal experience?",
+            options: ["Immediate lump-sum high-interest debt", "Tranche financing tied to predetermined milestones and skill acquisition", "Unsecured multi-million naira overdrafts", "Complete denial of startup capital"],
+            answer: 1
+        },
+        {
+            question: "Which financial statement shows the financial health (total assets and liabilities) of a company at a given period?",
+            options: ["Income Statement", "Statement of Financial Position (Balance Sheet)", "Cash Flow Statement from financing", "Petty Cash Imprest Book"],
+            answer: 1
+        },
+        {
+            question: "The anthropological approach to entrepreneurship stresses that venture creation is deeply shaped by:",
+            options: ["Uniform international regulations", "A community's cultural values, social customs, and shared belief systems", "Complete isolation from social structures", "The total erasure of local traditions"],
+            answer: 1
+        },
+        {
+            question: "What are the three key foundational features that underpin the success of cloud computing?",
+            options: ["Rigidity, high upfront cost, and local isolation", "Scalability, cost-effectiveness (pay-as-you-go), and accessibility (anytime, anywhere)", "Manual maintenance, slow deployment, and physical storage", "Vendor lock-in, offline storage, and fixed hardware"],
+            answer: 1
+        },
+        {
+            question: "Which form of business ownership exposes the sole owner to unlimited personal liability for all business debts?",
+            options: ["Private Limited Company", "Sole Proprietorship", "Corporation", "Limited Liability Company"],
+            answer: 1
+        },
+        {
+            question: "Business communication is formally defined as:",
+            options: ["Random casual conversations between friends", "The process of conveying messages or sharing orientation using symbols to carry out business dealings", "Internal computer data processing", "Non-verbal artistic expression only"],
+            answer: 1
+        },
+        {
+            question: "Micro-finance is primarily aimed at providing financial services to:",
+            options: ["Multinational conglomerates", "Low-income individuals and small enterprises lacking access to large-scale banking services", "Government central treasuries", "Large public corporations"],
+            answer: 1
+        },
+        {
+            question: "Which marketing philosophy contends that consumers will favor products that are widely available and affordable, prompting management to focus on production and distribution efficiency?",
+            options: ["Product Concept", "Production Concept", "Selling Concept", "Societal Marketing Concept"],
+            answer: 1
+        },
+        {
+            question: "What is the central focus of the 'Economic Theory of Entrepreneurship'?",
+            options: ["Inborn psychological traits and childhood upbringing", "Economic incentives such as tax policies, infrastructure, free trade, and market knowledge", "Cultural taboos and ancestral customs", "Sudden loss of social prestige"],
+            answer: 1
+        },
+        {
+            question: "What is the primary distinction between creativity and innovation?",
+            options: ["Creativity involves implementation, while innovation involves generating ideas", "Creativity is generating novel ideas, whereas innovation is bringing those ideas into realization to add value", "Creativity and innovation are entirely identical terms", "Innovation requires no creative thought"],
+            answer: 1
+        },
+        {
+            question: "Which of the following is identified as a cultural barrier to entrepreneurship?",
+            options: ["A strong pro-business attitude", "Risk aversion and cultures that do not value hard work or perseverance", "High preference for self-employment", "Materialistic desires surpassing standard jobs"],
+            answer: 1
+        },
+        {
+            question: "The celebrated Nigerian Supreme Court case of Innoson Group vs. GTBank (February 27, 2019) regarding unlawful charges was discovered through:",
+            options: ["Stock taking inventories", "Bank reconciliation statements carried out by accountants", "Corporate tax audits", "Advertising reviews"],
+            answer: 1
+        },
+        {
+            question: "According to Julian Rotter (1966), an individual with an 'internal locus of control' believes that:",
+            options: ["Life events are driven entirely by luck, fate, or chance", "The outcomes and success of their actions depend directly on their own behavior and efforts", "Success is controlled exclusively by government regulators", "Personal decisions have no bearing on business outcomes"],
+            answer: 1
+        },
+        {
+            question: "Cloud computing service models include Infrastructure as a Service (IaaS), Software as a Service (SaaS), and:",
+            options: ["Database as a Service (DaaS)", "Platform as a Service (PaaS)", "Network as a Service (NaaS)", "Storage as a Service (StaaS)"],
+            answer: 1
+        },
+        {
+            question: "What is a key advantage of incorporating a Private Limited Company (Ltd)?",
+            options: ["Owners have unlimited personal liability for all corporate loans", "Owners' liability is limited to the amount invested in shares, and the business has perpetuity", "It requires no formal registration with the state", "It dissolves automatically upon the death of a shareholder"],
+            answer: 1
+        },
+        {
+            question: "Which of the following represents the five basic elements of communication?",
+            options: ["Product, Price, Place, Promotion, People", "Sender, Receiver, Message, Feedback, Channel", "Planning, Organizing, Leading, Controlling, Staffing", "Input, Output, Process, Control, Feedback"],
+            answer: 1
+        },
+        {
+            question: "Small business investment organizations (such as cooperative societies or thrift clubs) provide funds to members at interest rates that are typically:",
+            options: ["Higher than commercial bank rates", "Lower than commercial bank rates, with easier accessibility", "Prohibitively expensive", "Tied exclusively to foreign exchange rates"],
+            answer: 1
+        },
+        {
+            question: "The marketing philosophy that balances customer satisfaction with the long-term well-being of both consumers and society is the:",
+            options: ["Holistic Marketing Concept", "Societal Marketing Concept", "Production Concept", "Internal Marketing Concept"],
+            answer: 1
+        },
+        {
+            question: "McClelland’s (1961) psychological theory emphasizes that entrepreneurs are primarily driven by:",
+            options: ["The need for affiliation and social conformity", "The need for achievement, excellence, and accomplishing difficult goals", "The desire to avoid all responsibility", "Fear of financial competition"],
+            answer: 1
+        },
+        {
+            question: "Which type of innovation involves making gradual, continuous improvements to existing products and services?",
+            options: ["Disruptive innovation", "Incremental innovation", "Radical innovation", "Architectural innovation"],
+            answer: 1
+        },
+        {
+            question: "How does an unstable political environment impact entrepreneurial development?",
+            options: ["It encourages long-term foreign investment", "Frequent policy changes create fear and doubt regarding the safety of investments", "It eliminates bureaucratic hurdles completely", "It lowers operating and tax costs"],
+            answer: 1
+        },
+        {
+            question: "What is a primary distinguishing characteristic of a family business compared to a standard small business?",
+            options: ["Complete absence of family members", "Intergenerational transfer of leadership, ownership, and the priority of long-term legacy", "Focus exclusively on short-term weekly profits", "Total lack of formal governance structures"],
+            answer: 1
+        },
+        {
+            question: "The Sociological Theory of Entrepreneurship highlights which of the following as key contexts for entrepreneurial opportunity?",
+            options: ["Random technological glitches", "Social networks, life course experiences, and ethnic identification", "Isolated hermit lifestyles", "Complete rejection of human relationships"],
+            answer: 1
+        },
+        {
+            question: "What is a major environmental and economic advantage of businesses adopting renewable energy sources (such as solar and wind)?",
+            options: ["Increased greenhouse gas emissions", "Reduced emissions, resource conservation, cost stability, and energy independence", "Complete unpredictability of long-term energy costs", "Increased dependence on fossil fuel extraction"],
+            answer: 1
+        },
+        {
+            question: "Environmental scanning in business involves gathering information from the external world to identify:",
+            options: ["Internal employee attendance records", "Strategic opportunities and potential market risks or threats", "Personal family disputes", "Daily petty cash balances"],
+            answer: 1
+        },
+        {
+            question: "According to Emenike (2020), messages conveyed in business communication can be classified into:",
+            options: ["Hard, soft, and mixed assets", "Verbal, voiced, and non-verbal messages", "Written, electronic, and postal", "Formal, informal, and secret"],
+            answer: 1
+        },
+        {
+            question: "What is a 'trade credit' financing arrangement?",
+            options: ["A cash loan issued by the Central Bank of Nigeria", "An arrangement where an entrepreneur buys goods from a supplier and defers payment to a future date", "Selling equity shares on the Stock Exchange", "Crowdfunding via internet donation portals"],
+            answer: 1
+        },
+        {
+            question: "What is the primary difference between e-commerce and e-business?",
+            options: ["E-commerce involves only manufacturing, while e-business involves retail", "E-commerce focuses on trading and transactions via electronic linkages, whereas e-business encompasses the transformation of key business processes using Internet technologies", "They are completely unrelated terms with no digital overlap", "E-commerce is offline, while e-business is online"],
+            answer: 1
+        },
+        {
+            question: "The Anthropological Theory of Entrepreneurship stresses that successful venture creation is deeply influenced by:",
+            options: ["Strict disregard for community beliefs", "The community's social values, cultural context, customs, and beliefs", "Uniform global regulations", "Elimination of cultural identity"],
+            answer: 1
+        },
+        {
+            question: "An innovation that involves major technological breakthroughs which revolutionize industries and create new markets is classified as:",
+            options: ["Incremental innovation", "Radical (or revolutionary) innovation", "Routine administrative change", "Minor product tweaking"],
+            answer: 1
+        },
+        {
+            question: "The Nigerian Export Processing Zones Authority (NEPZA) was created to:",
+            options: ["Increase import duties on raw materials", "Streamline and lower the cost of export manufacturing", "Restrict industrial zones to foreign entities only", "Manage domestic retail markets"],
+            answer: 1
+        },
+        {
+            question: "Based on Cucari et al. (2018) classification of family businesses, a 'Domestic' business is characterized by:",
+            options: ["Large firm size with open public shares", "Small firm size with absolute control and a family board/management body", "Mid-sized non-family professional boards", "Multinational conglomerates"],
+            answer: 1
+        },
+        {
+            question: "In supply chain management, how does Artificial Intelligence (AI) assist operations?",
+            options: ["By creating intentional stockouts and delivery delays", "Through demand forecasting, automated inventory management, and predictive maintenance of equipment", "By replacing human workers with physical machinery entirely without data", "By increasing administrative errors"],
+            answer: 1
+        },
+        {
+            question: "In a SWOT analysis, Strengths and Weaknesses are classified as:",
+            options: ["External environmental trends", "Internal factors specific to the organization", "Macro-economic regulatory forces", "Uncontrollable market hazards"],
+            answer: 1
+        },
+        {
+            question: "How many core stages are identified in the business communication process?",
+            options: ["Three stages", "Six stages (conception, encoding, medium choice, decoding, interpretation, feedback)", "Ten stages", "Two stages"],
+            answer: 1
+        },
+        {
+            question: "What is a major constraint facing Nigerian entrepreneurs when attempting to access bank financing?",
+            options: ["Excessively high availability of collateral", "Absence of collateral security, high interest rates, and poor financial record-keeping", "Overabundance of interest-free loan policies", "Complete lack of commercial banks in the country"],
+            answer: 1
+        },
+        {
+            question: "The 5C model of e-commerce includes Commerce, Collaboration, Communication, Connection, and:",
+            options: ["Control", "Computation", "Capital", "Customization"],
+            answer: 1
+        },
+        {
+            question: "What are known as the '4Ps of innovation' (dimensions of innovation)?",
+            options: ["Product, Price, Place, Promotion", "Paradigm, Process, Position, Product", "Planning, Processing, Packaging, Profit", "People, Performance, Partnership, Plan"],
+            answer: 1
+        },
+        {
+            question: "What support service is recognized as exceptionally beneficial for young and inexperienced entrepreneurs?",
+            options: ["Mandatory tax audits", "Mentoring programs matching them with experienced entrepreneurs", "Strict legal prosecution for errors", "Elimination of advisory networks"],
+            answer: 1
+        },
+        {
+            question: "What is recognized as one of the most critical and complex challenges unique to family business management?",
+            options: ["Eliminating all family involvement", "Succession planning and balancing family dynamics with professional management", "Preventing any form of long-term growth", "Avoiding customer service interactions"],
+            answer: 1
+        },
+        {
+            question: "Why is communication essential in business operations?",
+            options: ["It eliminates the need for trade and commerce", "It facilitates commercial dealings, social cohesion, learning, and cultural promotion", "It restricts the transfer of knowledge", "It prevents customer feedback"],
+            answer: 1
+        },
+        {
+            question: "Which form of bank credit allows an entrepreneur to overdraw their current account up to an agreed limit on payment of interest?",
+            options: ["Mortgage facility", "Bank overdraft (secured or unsecured)", "Treasury bill discount", "Venture capital equity"],
+            answer: 1
+        },
+        {
+            question: "An e-commerce transaction model where an individual consumer sells goods or services directly to another consumer (such as via online auction sites like eBay) is classified as:",
+            options: ["B2B", "C2C (Consumer-to-Consumer)", "B2G", "B2C"],
+            answer: 1
+        },
+        {
+            question: "How do knowledge and creativity relate to one another in business innovation?",
+            options: ["They operate independently without mutual synergy", "Creativity is built on knowledge; security in knowledge allows for greater creative recombination", "Knowledge completely eliminates the need for creativity", "Creativity functions best without any background information"],
+            answer: 1
+        },
+        {
+            question: "Which group acts as a pressure group fighting for a better environment for export manufacturing in Nigeria?",
+            options: ["Association of Nigerian Exporters (ANE)", "Manufacturers Association of Nigeria - Export Group", "State Committees on Export Promotion (SCEP)", "Central Bank of Nigeria"],
+            answer: 1
+        },
+        {
+            question: "The distinction between a 'family business' and a 'business family' is that a business family:",
+            options: ["Operates only a single small retail shop", "Owns multiple businesses or investments, focusing on wealth management and portfolio diversification", "Involves all family members in daily manual operations", "Excludes any professional managers"],
+            answer: 1
+        },
+        {
+            question: "What is the primary function of an Executive Summary within a business plan?",
+            options: ["To list all employee home addresses", "To provide a concise 1-2 page overview of the company's background, core proposition, and key findings", "To act as a legal tax clearance certificate", "To record daily petty cash transactions"],
+            answer: 1
+        },
+        {
+            question: "What strategy is recommended for expanding one's knowledge and developing lifelong skills?",
+            options: ["Avoiding diverse learning experiences", "Engaging in diverse learning experiences, seeking mentors, and reading regularly", "Relying solely on memorized definitions", "Resisting feedback and reflection"],
+            answer: 1
+        },
+        {
+            question: "How does entrepreneurship education help address graduate unemployment in developing regions?",
+            options: ["By forcing graduates into civil service roles", "By equipping students with skills to become self-reliant job creators", "By eliminating all private sector businesses", "By restricting enterprise creation"],
+            answer: 1
+        },
+        {
+            question: "What is a key recommendation for improving entrepreneurship education across academic institutions?",
+            options: ["Restricting entrepreneurship to business students only", "Integrating entrepreneurship across all academic disciplines and providing faculty training", "Removing all hands-on practical training", "Eliminating partnerships with industry stakeholders"],
+            answer: 1
+        },
+        {
+            question: "In the 21st century, why is an entrepreneurial mindset essential for the workforce?",
+            options: ["To resist technological advancements and globalization", "To embrace risk-solving, adaptability, and quick pivoting amid rapid changes", "To maintain rigid and unchanging job descriptions", "To eliminate the need for continuous learning"],
+            answer: 1
+        },
+        {
+            question: "What is identified as the key to success in the ever-evolving world of entrepreneurship?",
+            options: ["Resisting technological advancements and sticking to 19th-century methods", "Identifying opportunities at the intersection of technological advancements, changing consumer behavior, and global trends", "Avoiding market research and customer feedback", "Operating without a business plan or registration"],
+            answer: 1
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let timerInterval;
+    let timeLeft = 60 * 60; // 60 minutes in seconds
+
+    function startQuiz() {
+        document.getElementById('instructions-screen').style.display = 'none';
+        document.getElementById('quiz-screen').style.display = 'block';
+        buildPalette();
+        loadQuestion(currentQuestionIndex);
+        startTimer();
+    }
+
+    function buildPalette() {
+        const paletteGrid = document.getElementById('palette-grid');
+        paletteGrid.innerHTML = '';
+        for (let i = 0; i < questions.length; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'palette-btn';
+            btn.id = `palette-btn-${i}`;
+            btn.innerText = i + 1;
+            btn.onclick = () => jumpToQuestion(i);
+            paletteGrid.appendChild(btn);
+        }
+        updatePalette();
+    }
+
+    function updatePalette() {
+        for (let i = 0; i < questions.length; i++) {
+            const btn = document.getElementById(`palette-btn-${i}`);
+            if (!btn) continue;
+            
+            btn.className = 'palette-btn';
+            if (i === currentQuestionIndex) {
+                btn.classList.add('current');
+            }
+            if (userAnswers[i] !== null) {
+                btn.classList.add('answered');
+            }
+        }
+    }
+
+    function jumpToQuestion(index) {
+        currentQuestionIndex = index;
+        loadQuestion(currentQuestionIndex);
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                submitQuiz();
+                return;
+            }
+            timeLeft--;
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            document.getElementById('timer').innerText = `Time Left: ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }, 1000);
+    }
+
+    function loadQuestion(index) {
+        const q = questions[index];
+        document.getElementById('question-counter').innerText = `Question ${index + 1} of ${questions.length}`;
+        document.getElementById('question-text').innerText = q.question;
+
+        const optionsList = document.getElementById('options-list');
+        optionsList.innerHTML = '';
+
+        q.options.forEach((opt, i) => {
+            const isChecked = userAnswers[index] === i ? 'checked' : '';
+            const li = document.createElement('li');
+            li.className = 'option-item';
+            li.innerHTML = `
+                <label style="display: block; cursor: pointer; width: 100%;">
+                    <input type="radio" name="option" value="${i}" ${isChecked} onclick="saveAnswer(${index}, ${i})">
+                    ${String.fromCharCode(65 + i)}. ${opt}
+                </label>
+            `;
+            optionsList.appendChild(li);
+        });
+
+        document.getElementById('prev-btn').disabled = index === 0;
+        if (index === questions.length - 1) {
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-btn').style.display = 'inline-block';
+        } else {
+            document.getElementById('next-btn').style.display = 'inline-block';
+            document.getElementById('submit-btn').style.display = 'none';
+        }
+
+        updatePalette();
+    }
+
+    function saveAnswer(qIndex, optIndex) {
+        userAnswers[qIndex] = optIndex;
+        updatePalette();
+    }
+
+    function nextQuestion() {
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion(currentQuestionIndex);
+        }
+    }
+
+    function prevQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion(currentQuestionIndex);
+        }
+    }
+
+    function submitQuiz() {
+        clearInterval(timerInterval);
+        document.getElementById('quiz-screen').style.display = 'none';
+        document.getElementById('result-screen').style.display = 'block';
+
+        let score = 0;
+        questions.forEach((q, i) => {
+            if (userAnswers[i] === q.answer) {
+                score++;
+            }
+        });
+
+        document.getElementById('score-display').innerText = `${score} / ${questions.length}`;
+        
+        let remark = "";
+        const percentage = (score / questions.length) * 100;
+        if (percentage >= 70) {
+            remark = "Excellent! You are thoroughly prepared for your CES211 CBT exam.";
+        } else if (percentage >= 50) {
+            remark = "Good effort! Review your weaker topics to secure a top grade.";
+        } else {
+            remark = "Needs Improvement. Go through the course manual sections again and retake the practice.";
+        }
+        document.getElementById('remark-text').innerText = remark;
+    }
+
+    function showReview() {
+        document.getElementById('result-screen').style.display = 'none';
+        document.getElementById('review-screen').style.display = 'block';
+
+        const reviewContainer = document.getElementById('review-container');
+        reviewContainer.innerHTML = '';
+
+        questions.forEach((q, index) => {
+            const userChoice = userAnswers[index];
+            const isCorrect = userChoice === q.answer;
+
+            let card = document.createElement('div');
+            card.className = 'review-card';
+            card.style.borderLeft = isCorrect ? '5px solid #28a745' : '5px solid #dc3545';
+
+            let qHtml = `<div class="review-question">Q${index + 1}: ${q.question}</div>`;
+
+            q.options.forEach((opt, optIdx) => {
+                let optClass = 'review-option';
+                let indicator = '';
+
+                if (optIdx === q.answer) {
+                    optClass += ' correct-ans';
+                    indicator = ' <strong>(Correct Answer)</strong>';
+                } else if (optIdx === userChoice && !isCorrect) {
+                    optClass += ' wrong-ans';
+                    indicator = ' <strong>(Your Answer - Incorrect)</strong>';
+                } else if (optIdx === userChoice && isCorrect) {
+                    indicator = ' <strong>(Your Answer - Correct)</strong>';
+                }
+
+                qHtml += `<div class="${optClass}">${String.fromCharCode(65 + optIdx)}. ${opt}${indicator}</div>`;
+            });
+
+            card.innerHTML = qHtml;
+            reviewContainer.appendChild(card);
+        });
+    }
+</script>
+
+</body>
+</html>
